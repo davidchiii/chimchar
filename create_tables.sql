@@ -140,3 +140,13 @@ CREATE TABLE crime_charge (
     FOREIGN KEY (crime_id) REFERENCES crime(crime_id),
     FOREIGN KEY (crime_code) REFERENCES crime_code(crime_code)
 );
+
+
+CREATE TABLE crime_officers (
+    crime_id int,
+    officer_id int
+
+    PRIMARY KEY(crime_id)
+    FOREIGN KEY (crime_id) REFERENCES crime(crime_id)
+    FOREIGN KEY (officer_id) REFERENCES officer(officer_id)
+);
