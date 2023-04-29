@@ -1,0 +1,1 @@
+<!-- define php code to print all criminals in database here -->

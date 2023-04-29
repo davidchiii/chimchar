@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>My Website</title>
+	<title>City Jail Website</title>
 	<style>
 		/* Style the navigation bar */
 		.navbar {
@@ -33,57 +32,19 @@
 		}
 	</style>
 </head>
-
 <body>
-    <!-- Navigation bar -->
+	<!-- Navigation bar -->
 	<div class="navbar">
-		<a class="active" href="#">Home</a>
-		<a href="page1.html">Page 1</a>
-		<a href="page2.html">Page 2</a>
+		<a class="active" href="#">City Jail Website</a>
+		<a href="connect.php">Police Records</a>
+		<a href="officers.php">City Courts</a>
+		<a href="criminals.php">City Prison</a>
 	</div>
-    <?php
-    // Set database credentials
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "jail";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Get all values in the "criminals" table
-    $sql = "SELECT * FROM criminals";
-    $result = $conn->query($sql);
-
-    // Print out all values in the "criminals" table
-    if ($result->num_rows > 0) {
-        echo "<table>";
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["criminal_id"] . "</td>";
-            echo "<td>" . $row["last_name"] . "</td>";
-            echo "<td>" . $row["first_name"] . "</td>";
-            echo "<td>" . $row["street"] . "</td>";
-            echo "<td>" . $row["city"] . "</td>";
-            echo "<td>" . $row["state_in"] . "</td>";
-            echo "<td>" . $row["zip"] . "</td>";
-            echo "<td>" . $row["phone_nmbr"] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    } else {
-        echo "0 results";
-    }
-
-    // Close connection
-    $conn->close();
-    ?>
-
+	<!-- Main content -->
+	<div>
+		<h1>Welcome to the City Jail Website</h1>
+		<p>Here you can find information about our jail, inmate lookup, visitation hours, and more.</p>
+		<p>Please use the navigation bar above to access other city websites.</p>
+	</div>
 </body>
-
 </html>
