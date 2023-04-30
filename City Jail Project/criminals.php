@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+// Check if the user is an admin
+$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +20,18 @@
 		<a href="index.php">City Jail Website</a>
 		<a href="officers.php">Officer Lookup</a>
 		<a class="active" href="criminals.php">Criminal Lookup</a>
+		<?php if(isset($_SESSION['loggedin'])): ?>
+            <?php if($is_admin): ?>
+                <a href="arrest.php">Enter Arrest</a>
+                <a href="officer_page.php">Profile</a>
+            <?php else: ?>
+                <a href="payment.php">Make Payment</a>
+                <a href="criminal_page.php">Profile</a>
+            <?php endif; ?>
+            <a class="login" href="logout.php">Log Out</a>
+        <?php else: ?>
+            <a class="login" href="login.php">Log In</a>
+        <?php endif; ?>
 	</div>
 
 	<h1>Criminal Search</h1>
