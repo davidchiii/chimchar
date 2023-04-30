@@ -1,0 +1,28 @@
+.profile {
+  width: 80%;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile p {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.profile span {
+  font-weight: bold;
+}
+
+.profile img {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  border-radius: 50%;
+}
