@@ -1,3 +1,7 @@
+body{
+    margin: none;
+}
+
 /* Style the banner image */
 .banner-image {
 	width: 100%;

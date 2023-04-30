@@ -1,14 +1,8 @@
 <?php
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
-
 // Check if the user is an admin
-$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == true;
+$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +20,18 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == true;
 		<a class="active" href="#">City Jail Website</a>
 		<a href="officers.php">Officer Lookup</a>
 		<a href="criminals.php">Criminal Lookup</a>
-        <a class="login" href="login.php">Log In</a>
+        <?php if(isset($_SESSION['loggedin'])): ?>
+            <?php if($is_admin): ?>
+                <a href="arrest.php">Enter Arrest</a>
+                <a href="officer_page.php">Profile</a>
+            <?php else: ?>
+                <a href="payment.php">Make Payment</a>
+                <a href="criminal_page.php">Profile</a>
+            <?php endif; ?>
+            <a class="login" href="logout.php">Log Out</a>
+        <?php else: ?>
+            <a class="login" href="login.php">Log In</a>
+        <?php endif; ?>
 	</div>
 
     <img class="banner-image" src="static\images\4569479-landscape-clouds-city-manhattan-sunset-new-york-city.jpg" alt="Banner Image">

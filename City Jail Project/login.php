@@ -35,6 +35,7 @@
             // Login successful, set the session variable and redirect to the homepage
             $_SESSION["loggedin"] = true;
             $_SESSION["username"] = $username;
+            $row = $result->fetch_assoc();
             $_SESSION["is_admin"] = $row["permission_type"];
             header("Location: index.php");
         } else {
