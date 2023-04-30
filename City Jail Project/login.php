@@ -18,6 +18,7 @@
     $username = "";
     $password = "";
     $error_message = "";
+    $criminal_id = "";
 
     // Handle the login form submission
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,7 +27,7 @@
         $password = $_POST["password"];
 
         // Check if the username and password are correct
-        $sql = "SELECT username, password, permission_type
+        $sql = "SELECT username, password, permission_type, criminal_id
                 FROM users 
                 WHERE username = '$username' AND password = '$password'";
         $result = $conn->query($sql);
@@ -37,6 +38,7 @@
             $_SESSION["username"] = $username;
             $row = $result->fetch_assoc();
             $_SESSION["is_admin"] = $row["permission_type"];
+            $_SESSION["criminal_id"] = $row["criminal_id"];
             header("Location: index.php");
         } else {
             // Login failed, display an error message

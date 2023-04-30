@@ -25,7 +25,7 @@ if (isset($_SESSION['criminal_id'])) {
   $criminal_id = $_SESSION['criminal_id'];
   echo "Criminal ID: " . $criminal_id;
 } else {
-  echo "No criminal ID found in session.";
+  echo "No criminal ID found in session. L bozo";
 }
 
 // // Get the crimes the criminal has committed from the crimes table
