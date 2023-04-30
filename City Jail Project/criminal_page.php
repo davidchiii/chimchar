@@ -1,37 +1,37 @@
 <?php
-session_start();
+    session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    // Check if the user is logged in
+    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("Location: login.php");
+        exit;
+    }
 
-// Check if the user is an admin
-$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+    // Check if the user is an admin
+    $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jail";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "jail";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
 
-if (isset($_SESSION['criminal_id'])) {
-  $criminal_id = $_SESSION['criminal_id'];
-// echo "Criminal ID: " . $criminal_id;
-} else {
-  echo "";
-}
+    if (isset($_SESSION['criminal_id'])) {
+    $criminal_id = $_SESSION['criminal_id'];
+    // echo "Criminal ID: " . $criminal_id;
+    } else {
+    echo "";
+    }
 
-// Get the crimes the criminal has committed from the crimes table
-$sql = "SELECT first_name, last_name, street, city, state_in, zip, phone_nmbr, voff_status, probation_status FROM criminals WHERE criminal_id=$criminal_id";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
+    // Get the crimes the criminal has committed from the crimes table
+    $sql = "SELECT first_name, last_name, street, city, state_in, zip, phone_nmbr, voff_status, probation_status FROM criminals WHERE criminal_id=$criminal_id";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
 ?>
 
 
