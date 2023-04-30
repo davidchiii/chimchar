@@ -52,19 +52,19 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
         <div class="card">
             <img src="static/images/hoa.jpg" alt="Card Image 1">
             <p>Community Impact</p>
-            <a href="https://example.com/card-link-1">Read our About!</a>
+            <a href="about.php">Read our About!</a>
         </div>
         <!-- Card 2 -->
         <div class="card">
             <img src="static/images/consulting.jpg" alt="Card Image 2">
             <p>Consultations</p>
-            <a href="https://example.com/card-link-2">Schedule a visit!</a>
+            <a href="consultations.php">Schedule a visit!</a>
         </div>
         <!-- Card 3 -->
         <div class="card">
             <img src="static/images/budgeting.jpg" alt="Card Image 3">
             <p>Services</p>
-            <a href="https://example.com/card-link-3">Contact us!</a>
+            <a href="services.php">Contact us!</a>
         </div>
     </div>
 </body>
