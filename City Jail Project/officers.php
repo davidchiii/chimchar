@@ -10,7 +10,7 @@
 <body>
 	<!-- Navigation bar -->
 	<div class="navbar">
-		<a href="#">City Jail Website</a>
+		<a href="index.php">City Jail Website</a>
 		<a class="active" href="officers.php">Officer Lookup</a>
 		<a href="criminals.php">Criminal Lookup</a>
 	</div>
