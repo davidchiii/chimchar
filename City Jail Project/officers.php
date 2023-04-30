@@ -34,7 +34,7 @@
 		    $search_query = $_GET['search'];
 		    $sql = "SELECT * FROM officer 
 		    		WHERE first_name 
-		    		LIKE ".$search_query."%'";
+		    		LIKE '%" . $search_query . "%'";
 		} else {
 		    $sql = "SELECT * FROM officer";
 		}
