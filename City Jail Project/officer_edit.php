@@ -36,6 +36,26 @@
     $sql = "SELECT * FROM officer 
             WHERE officer_id = $officer_id";
     $result = $conn->query($sql);
+
+    // Check if form has been submitted
+    if(isset($_POST['submit'])) {
+        $badge_number = $_POST['badge'];
+        $precinct = $_POST['precinct'];
+        $phone = $_POST['phone'];
+        $status = $_POST['status'];
+
+        // Update officer information in the database
+        $sql = "UPDATE officer 
+                SET badge = '$badge_number', precinct = '$precinct', phone_num = '$phone', status_val = '$status' 
+                WHERE officer_id = $officer_id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Officer information updated successfully";
+            header("Location: officer_page.php");
+        } else {
+            echo "Error updating officer information: " . $conn->error;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -67,33 +87,34 @@
         <?php endif; ?>
     </div>
     <div class="container">
-    <?php
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-    ?>
-            <a class="edit" href="officer_edit.php">Edit</a>
+        <?php
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+        ?>
+            <form method="post">
             <img src="static/images/officer.jpg" alt="Officer Image">
             <h2 class="name"><?php echo $row["last_name"] . ", " . $row["first_name"]; ?></h2>
-            <p class="badge-number"><strong>Badge Number:</strong> <?php echo $row['badge']; ?></p>
-            <p class="info"><strong>Precinct:</strong> <?php echo $row['precinct']; ?></p>
-            <p class="info"><strong>Phone:</strong> <?php echo $row['phone_num']; ?></p>
+            <p class="badge-number"><strong>Badge Number:</strong> <input type="text" value="<?php echo $row['badge']; ?>" name="badge"></p>
+            <p class="info"><strong>Precinct:</strong> <input type="text" value="<?php echo $row['precinct']; ?>" name="precinct"></p>
+            <p class="info"><strong>Phone:</strong> <input type="text" value="<?php echo $row['phone_num']; ?>" name="phone"></p>
             <p class="info"><strong>Status:</strong>
-            <?php
-                if ($row['status_val'] == 'A') {
-                    echo 'Active';
-                } else {
-                    echo 'Inactive';
-                }
-            ?>
+                <select name="status">
+                    <option value="A" <?php if ($row['status_val'] == 'A') echo 'selected="selected"'; ?>>Active</option>
+                    <option value="I" <?php if ($row['status_val'] == 'I') echo 'selected="selected"'; ?>>Inactive</option>
+                </select>
             </p>
-    <?php
-        } else {
-            echo '<p>No officer found.</p>';
-        }
+        <?php
+            } else {
+                echo '<p>No officer found.</p>';
+            }
 
-        // Close database connection
-        $conn->close();
-    ?>
+            // Close database connection
+            $conn->close();
+        ?>
+            <div class="submit-container">
+                <button class="edit-button" type="submit" name="submit" value="true">Submit Edit</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>

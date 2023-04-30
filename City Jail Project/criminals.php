@@ -104,6 +104,5 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 				}
 			}
 		?>
-	<
 </body>
 </html>

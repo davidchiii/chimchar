@@ -1,0 +1,99 @@
+body {
+	background-color: #f2f2f2;
+}
+
+h1 {
+	color: #333333;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.container {
+	width: 60%;
+	margin: 90px auto;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+	font-family: Arial, sans-serif;
+	position: relative;
+}
+
+.edit {
+	position:absolute;
+	top: 15px;
+	right: 15px;
+	padding: 10px 12px;
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
+}
+
+/* Hover effect */
+.edit:hover {
+	background-color: #3e8e41;
+}
+
+/* Active effect */
+.edit:active {
+	background-color: #3e8e41;
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
+}
+
+img {
+	display: block;
+	margin: auto;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 50%;
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+	margin-top: -75px;
+}
+
+.name {
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+.badge-number {
+	font-size: 18px;
+	font-style: italic;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.info {
+	font-size: 16px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-container {
+  text-align: center;
+  margin-top: 20px;
+}
