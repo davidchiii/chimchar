@@ -1,55 +1,55 @@
 <?php
-session_start();
+    session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    // Check if the user is logged in
+    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("Location: login.php");
+        exit;
+    }
 
-// Check if the user is an admin
-$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+    // Check if the user is an admin
+    $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "jail";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "jail";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
 
-if (isset($_SESSION['criminal_id'])) {
-  $criminal_id = $_SESSION['criminal_id'];
-//   echo "Criminal ID: " . $criminal_id;
-} else {
-  echo "";
-}
+    if (isset($_SESSION['criminal_id'])) {
+    $criminal_id = $_SESSION['criminal_id'];
+    //   echo "Criminal ID: " . $criminal_id;
+    } else {
+    echo "";
+    }
 
-// Get the crimes the criminal has committed from the crimes table
-$sql = "SELECT crime_id FROM crime WHERE criminal_id=$criminal_id";
+    // Get the crimes the criminal has committed from the crimes table
+    $sql = "SELECT crime_id FROM crime WHERE criminal_id=$criminal_id";
 
-$total_charge = 0;
-$court_fee = 0;
-$amount_paid = 0;
-$fine_amount = 0;
-$result = $conn->query($sql);
-while($row = $result->fetch_assoc()) {
-  $crime_id = $row["crime_id"];
-  $sql = "SELECT fine_amount, court_fee, amount_paid FROM crime_charge WHERE crime_id=$crime_id";
-  $charge_result = $conn->query($sql);
-  $charge_row = $charge_result->fetch_assoc();
+    $total_charge = 0;
+    $court_fee = 0;
+    $amount_paid = 0;
+    $fine_amount = 0;
+    $result = $conn->query($sql);
+    while($row = $result->fetch_assoc()) {
+    $crime_id = $row["crime_id"];
+    $sql = "SELECT fine_amount, court_fee, amount_paid FROM crime_charge WHERE crime_id=$crime_id";
+    $charge_result = $conn->query($sql);
+    $charge_row = $charge_result->fetch_assoc();
 
-  $court_fee = $charge_row["court_fee"];
-  $amount_paid = $charge_row["amount_paid"]; 
-  $fine_amount = $charge_row["fine_amount"];
+    $court_fee = $charge_row["court_fee"];
+    $amount_paid = $charge_row["amount_paid"]; 
+    $fine_amount = $charge_row["fine_amount"];
 
-  $total_charge += $charge_row["fine_amount"];
-  $total_charge -= $charge_row["amount_paid"];
-  $total_charge += $charge_row["court_fee"];
-}
+    $total_charge += $charge_row["fine_amount"];
+    $total_charge -= $charge_row["amount_paid"];
+    $total_charge += $charge_row["court_fee"];
+    }
 
 ?>
 
@@ -95,9 +95,27 @@ while($row = $result->fetch_assoc()) {
         echo "<p>Court Fee: $". number_format($court_fee, 2)."</p>";
         echo "<p>Amount Paid: $" . number_format($amount_paid, 2)."</p>";
         echo "<p>Total Charge Left: $" . number_format($total_charge, 2) . "</p>";
+
+
     ?>
-    
+    <form method="post" action="">
+        <label for="payment">Enter Payment Amount:</label>
+        <input type="number" step="0.01" id="payment" name="payment" required>
+        <button type="submit" name="submit">Add Payment</button>
+    </form>
 
-
+    <?php
+        if(isset($_POST['submit'])) {
+            $payment = $_POST['payment'];
+            $new_amount_paid = $amount_paid + $payment;
+            $sql = "UPDATE crime_charge SET amount_paid=$new_amount_paid WHERE crime_id IN (SELECT crime_id FROM crime WHERE criminal_id=$criminal_id)";
+            if($conn->query($sql)) {
+                header("Location: payment.php");
+                exit;
+            } else {
+                echo "Error updating record: " . $conn->error;
+            }
+        }
+    ?>
 </body>
 </html>
