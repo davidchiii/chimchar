@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
+// Check if the user is an admin
+$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == true;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +26,7 @@
 		<a class="active" href="#">City Jail Website</a>
 		<a href="officers.php">Officer Lookup</a>
 		<a href="criminals.php">Criminal Lookup</a>
+        <a class="login" href="login.php">Log In</a>
 	</div>
 
     <img class="banner-image" src="static\images\4569479-landscape-clouds-city-manhattan-sunset-new-york-city.jpg" alt="Banner Image">

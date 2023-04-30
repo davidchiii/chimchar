@@ -14,6 +14,10 @@
 	font-size: 17px;
 }
 
+.navbar .login {
+	float: right;
+}
+
 /* Change the color of links on hover */
 .navbar a:hover {
 	background-color: #ddd;
