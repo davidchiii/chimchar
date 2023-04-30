@@ -27,7 +27,7 @@
         $password = $_POST["password"];
 
         // Check if the username and password are correct
-        $sql = "SELECT username, password, permission_type, criminal_id
+        $sql = "SELECT username, password, permission_type, criminal_id, officer_id
                 FROM users 
                 WHERE username = '$username' AND password = '$password'";
         $result = $conn->query($sql);
@@ -39,6 +39,7 @@
             $row = $result->fetch_assoc();
             $_SESSION["is_admin"] = $row["permission_type"];
             $_SESSION["criminal_id"] = $row["criminal_id"];
+            $_SESSION["officer_id"] = $row["officer_id"];
             header("Location: index.php");
         } else {
             // Login failed, display an error message

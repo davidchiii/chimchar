@@ -35,10 +35,6 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 	</div>
 
     <img class="banner-image" src="static\images\4569479-landscape-clouds-city-manhattan-sunset-new-york-city.jpg" alt="Banner Image">
-		<a href="connect.php">Police Records</a>
-		<a href="officers.php">City Courts</a>
-		<a href="criminals.php">City Prison</a>
-	</div>
 	<!-- Main content -->
 	<div>
 		<h1>Welcome to the City Jail Website</h1>

@@ -65,7 +65,7 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 	</div>
 	<h1>Officer information:</h1>
 	<div class='container'>
-	    <form method='get'>
+	    <form method='GET'>
 	        <input type='text' name='search' placeholder='Search' value='<?php echo $search_query; ?>'/>
 	        <select name='search_column'>
 	            <option value='first_name' <?php if ($search_column == 'first_name') echo 'selected'; ?>>First Name</option>

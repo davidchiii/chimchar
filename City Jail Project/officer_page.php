@@ -1,14 +1,20 @@
 <?php
-session_start();
+    session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
+    // Check if the user is logged in
+    if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("Location: login.php");
+        exit;
+    }
 
-// Check if the user is an admin
-$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+    // Check if the user is an admin
+    $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+
+    // Check if the user is logged in
+    if (!$is_admin) {
+        header("Location: logout.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>

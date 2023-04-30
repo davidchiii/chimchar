@@ -1,4 +1,37 @@
 <?php
+		// Establish database connection
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "jail";
+
+		$conn = new mysqli($servername, $username, $password, $dbname);
+
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		}
+
+		// Check if search was submitted
+		$search_query = "";
+		$search_column = "first_name";
+		if (isset($_GET['search'])) {
+			$search_query = $_GET['search'];
+	    	$search_column = $_GET['search_column'];
+			// Prepare SQL statement
+			$sql = "SELECT criminal_id, last_name, first_name, street, city, state_in, zip, phone_nmbr, voff_status, probation_status FROM criminals WHERE " . $search_column . " 
+	    		LIKE '" . $search_query . "%'";
+			// Execute SQL statement and get results
+		} else {
+			$sql = "SELECT * FROM criminals
+					WHERE " . $search_column . " 
+	    			LIKE '" . $search_query . "'";
+		}
+		$result = $conn->query($sql);
+		// Close database connection
+		$conn->close();
+	?>
+
+<?php
 session_start();
 
 // Check if the user is an admin
@@ -10,9 +43,9 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Officer Lookup</title>
+	<title>Criminal Lookup</title>
 	<link rel="stylesheet" type="text/css" href="static/css/header-style.css">
-    <link rel="stylesheet" type="text/css" href="static/css/officer.css">
+    <link rel="stylesheet" type="text/css" href="static/css/criminals.css">
 </head>
 <body>
     <!-- Navigation bar -->
@@ -35,35 +68,17 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 	</div>
 
 	<h1>Criminal Search</h1>
-	<form method="GET">
-		<label for="search">Search Name:</label>
-		<input type="text" name="search" id="search">
-		<input type="submit" value="Search">
-	</form>
+	<div class="container">
+		<form method="GET">
+			<input type='text' name='search' placeholder='Search' value='<?php echo $search_query; ?>'/>
+	        <select name='search_column'>
+	            <option value='first_name' <?php if ($search_column == 'first_name') echo 'selected'; ?>>First Name</option>
+	            <option value='last_name' <?php if ($search_column == 'last_name') echo 'selected'; ?>>Last Name</option>
+	        </select>
+			<input type="submit" value="Search">
+		</form>
 
-	<?php
-		// Establish database connection
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "jail";
-
-		$conn = new mysqli($servername, $username, $password, $dbname);
-
-		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-		}
-
-		// Check if search was submitted
-		if (isset($_GET['search'])) {
-			$search = $_GET['search'];
-
-			// Prepare SQL statement
-			$sql = "SELECT criminal_id, last_name, first_name, street, city, state_in, zip, phone_nmbr, voff_status, probation_status FROM criminals WHERE first_name LIKE '%" . $search . "%'";
-			// Execute SQL statement and get results
-			$result = $conn->query($sql);
-
-			// Output search results
+		<?php 
 			if ($result->num_rows > 0) {
 				if ($result->num_rows > 0) {
 				echo "<h2>Search Results:</h2>";
@@ -84,14 +99,11 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 					echo "</tr>";
 				}
 				echo "</table>";
-			} else {
-				echo "<p>No results found.</p>";
+				} else {
+					echo "<p>No results found.</p>";
+				}
 			}
-		}
-	}
-
-		// Close database connection
-		$conn->close();
-	?>
+		?>
+	<
 </body>
 </html>
