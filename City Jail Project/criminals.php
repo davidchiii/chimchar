@@ -67,7 +67,7 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
         <?php endif; ?>
 	</div>
 
-	<h1>Criminal Search</h1>
+	<h1 style=text-align:center>Criminal Search</h1>
 	<div class="container">
 		<form method="GET">
 			<input type='text' name='search' placeholder='Search' value='<?php echo $search_query; ?>'/>
@@ -81,8 +81,8 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 		<?php 
 			if ($result->num_rows > 0) {
 				if ($result->num_rows > 0) {
-				echo "<h2>Search Results:</h2>";
-				echo "<table>";
+				echo "<h2 style=text-align:center>Search Results:</h2>";
+				echo "<table style=margin-left:auto;margin-right:auto>";
 				echo "<tr><th>Criminal ID</th><th>Last Name</th><th>First Name</th><th>Street</th><th>City</th><th>State</th><th>ZIP</th><th>Phone Number</th><th>Voff Status</th><th>Probation Status</th></tr>";
 				while($row = $result->fetch_assoc()) {
 					echo "<tr>";
