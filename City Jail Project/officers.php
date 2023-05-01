@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Check if the user is an admin
+$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
+?>
+
+<?php
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -12,6 +19,19 @@
 	    die("Connection failed: " . $conn->connect_error);
 	}
 
+	// Delete officer row
+	if ($is_admin && isset($_GET['delete'])) {
+		$id = $_GET['delete'];
+		$sql = "DELETE * FROM officer WHERE id=$id";
+		$result = $conn->query($sql);
+		if ($result) {
+		    echo "Record deleted successfully";
+		} else {
+		    echo "Error deleting record: " . $conn->error;
+		}
+	}
+
+	//Get officer table
 	$search_query = "";
 	$search_column = "first_name";
 	if (isset($_GET['search'])) {
@@ -26,13 +46,6 @@
 	$result = $conn->query($sql);
 
 	$conn->close();
-?>
-
-<?php
-session_start();
-
-// Check if the user is an admin
-$is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 ?>
 
 <!DOCTYPE html>
@@ -63,9 +76,9 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
             <a class="login" href="login.php">Log In</a>
         <?php endif; ?>
 	</div>
-	<h1>Officer information:</h1>
+	<h1>Officer information</h1>
 	<div class='container'>
-	    <form method='GET'>
+	    <form method='get'>
 	        <input type='text' name='search' placeholder='Search' value='<?php echo $search_query; ?>'/>
 	        <select name='search_column'>
 	            <option value='first_name' <?php if ($search_column == 'first_name') echo 'selected'; ?>>First Name</option>
@@ -87,7 +100,16 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 			        	"</td><td>" . $row["last_name"] . 
 			        	", " . $row["first_name"] . 
 			        	"</td><td>" . $row["precinct"] . 
-			        	"</td><td>" . $row["phone_num"] . "</td></tr>";
+			        	"</td><td>" . $row["phone_num"] . "</td>";
+			        if ($is_admin) {
+                    echo "<td>
+                            <form method='post'>
+                                <input type='hidden' name='delete_badge' value='" . $row["badge"] . "'>
+                                <input type='submit' name='delete_officer' value='Delete'>
+                            </form>
+                      	</td>";
+	                }
+	                echo "</tr>";
 			    }
 
 		        echo "</table>";
