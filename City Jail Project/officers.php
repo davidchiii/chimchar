@@ -63,7 +63,7 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
             <a class="login" href="login.php">Log In</a>
         <?php endif; ?>
 	</div>
-	<h1>Officer information:</h1>
+	<h1 style=text-align:center>Officer information:</h1>
 	<div class='container'>
 	    <form method='GET'>
 	        <input type='text' name='search' placeholder='Search' value='<?php echo $search_query; ?>'/>

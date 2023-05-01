@@ -89,12 +89,12 @@
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
 
-        echo "<h1>Criminal Charges for:</h1>";
-        echo "<h2>$row[first_name] $row[last_name]</h2>";
-        echo "<p>Amount Owed: $" . number_format($fine_amount, 2)."</p>";
-        echo "<p>Court Fee: $". number_format($court_fee, 2)."</p>";
-        echo "<p>Amount Paid: $" . number_format($amount_paid, 2)."</p>";
-        echo "<p>Total Charge Left: $" . number_format($total_charge, 2) . "</p>";
+        echo "<h1 style=text-align:center>Criminal Charges for:</h1>";
+        echo "<h2 style=text-align:center>$row[first_name] $row[last_name]</h2>";
+        echo "<p style=text-align:center>Amount Owed: $" . number_format($fine_amount, 2)."</p>";
+        echo "<p style=text-align:center>Court Fee: $". number_format($court_fee, 2)."</p>";
+        echo "<p style=text-align:center>Amount Paid: $" . number_format($amount_paid, 2)."</p>";
+        echo "<p style=text-align:center>Total Charge Left: $" . number_format($total_charge, 2) . "</p>";
 
 
     ?>

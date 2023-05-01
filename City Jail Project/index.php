@@ -36,7 +36,7 @@ $is_admin = isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] == "admin";
 
     <img class="banner-image" src="static\images\4569479-landscape-clouds-city-manhattan-sunset-new-york-city.jpg" alt="Banner Image">
 	<!-- Main content -->
-	<div>
+	<div style=text-align:center    >
 		<h1>Welcome to the City Jail Website</h1>
 		<p>Here you can find information about our jail, inmate lookup, visitation hours, and more.</p>
 		<p>Please use the navigation bar above to access other city websites.</p>
